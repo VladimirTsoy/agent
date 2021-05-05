@@ -1,0 +1,33 @@
+build-linux:
+  image: gitlab.avsw.ru:56050/agents/builder/linux:latest
+  stage: build
+  script:
+    - mkdir build && cd build
+    - cmake ..
+    - make -j5
+    - mv AthenaAgent ${CI_PROJECT_DIR}
+    #- make install
+  
+  artifacts:
+    paths:
+    - ./AthenaAgent
+    
+    
+build-windows:
+  image: gitlab.avsw.ru:56050/agents/builder/windows:latest
+  stage: build
+  allow_failure: true
+  script:
+    - echo "Эмулируем сборку на винде"
+    - mkdir build && cd build
+    - cmake -DCMAKE_TOOLCHAIN_FILE=../cmake/toolchain/x86_64-w64-mingw32.cmake ..
+    - make -j5
+
+    - cp /usr/x86_64-w64-mingw32/lib/sqlite3.lib ${CI_PROJECT_DIR}/sqlite3.dll
+    - cp AthenaAgent.exe ${CI_PROJECT_DIR}
+    #- make install
+  
+  artifacts:
+    paths:
+    - ./AthenaAgent.exe
+    - ./sqlite3.dll

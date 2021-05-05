@@ -1,0 +1,3 @@
+#define AthenaAgent_VERSION_MAJOR @AthenaAgent_VERSION_MAJOR@
+#define AthenaAgent_VERSION_MINOR @AthenaAgent_VERSION_MINOR@
+#define AthenaAgent_VERSION_PATCH @AthenaAgent_VERSION_PATCH@
